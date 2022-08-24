@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@social-network/contracts": ["libs/contracts/src/index.ts"],
+      "@social-network/interfaces": ["libs/interfaces/src/index.ts"],
+      "@client/components/*": ["apps/social-network/src/app/components/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

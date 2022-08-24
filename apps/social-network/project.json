@@ -21,7 +21,8 @@
         ],
         "styles": ["apps/social-network/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "@nrwl/react/plugins/webpack",
+        "postcssConfig": "apps/social-network/postcss.config.js"
       },
       "configurations": {
         "development": {
@@ -51,7 +52,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "social-network:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/social-network/proxy.conf.json"
       },
       "configurations": {
         "development": {

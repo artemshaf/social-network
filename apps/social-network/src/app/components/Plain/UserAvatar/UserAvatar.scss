@@ -1,0 +1,14 @@
+@tailwind utilities;
+@layer utilities {
+  user-avatar {
+    &_sm {
+      @apply w-[50px] h-[50px];
+    }
+    &_md {
+      @apply w-[60px] h-[60px];
+    }
+    &_lg {
+      @apply w-[70px] h-[70px];
+    }
+  }
+}

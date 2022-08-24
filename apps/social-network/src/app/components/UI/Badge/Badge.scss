@@ -1,0 +1,6 @@
+@tailwind utilities;
+@layer utilities {
+  .badge {
+    @apply p-[3px] rounded-full text-xs absolute top-0 right-0;
+  }
+}
