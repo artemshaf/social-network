@@ -91,7 +91,6 @@ module.exports = {
       padding: {
         md: '30px',
       },
-
       fontSize: {
         'body-sm': [
           '12px',
@@ -140,7 +139,12 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('postcss-mixins'),
+    require('postcss-nested'),
+    require('postcss-simple-vars'),
+    require('autoprefixer'),
+  ],
   corePlugins: {
     preflight: true,
   },

@@ -10,7 +10,7 @@ export const Search = ({
   ...props
 }: ISearchInterface) => {
   return (
-    <label className={cn(className)} {...props}>
+    <label className={cn(className, 'search')} {...props}>
       <Input placeholder={placeholder} />
       <Icon icon="search" />
     </label>

@@ -1,0 +1,46 @@
+.home-page {
+  @apply flex flex-col gap-md;
+
+  &__content {
+    @apply grid grid-cols-1 gap-md;
+    grid-template-columns: auto;
+    grid-template-areas: 'posts';
+
+    @screen lg {
+      @apply grid grid-cols-2 gap-md;
+      grid-template-columns: 285px auto;
+      grid-template-areas: 'menu posts';
+    }
+
+    @screen 2xl {
+      @apply grid grid-cols-4 gap-md;
+      grid-template-columns: 285px auto 285px 285px;
+      grid-template-areas: 'menu posts feeds messagings';
+    }
+  }
+
+  &__menu {
+    @screen 2xl {
+      grid-area: menu;
+      @apply flex flex-col gap-md;
+    }
+  }
+  &__posts {
+    grid-area: posts;
+    @apply flex flex-col gap-md;
+  }
+  &__feeds {
+    @apply hidden;
+    @screen 2xl {
+      @apply flex flex-col gap-md;
+      grid-area: feeds;
+    }
+  }
+  &__messagings {
+    @apply hidden;
+    @screen 2xl {
+      @apply flex flex-col gap-md;
+      grid-area: messagings;
+    }
+  }
+}

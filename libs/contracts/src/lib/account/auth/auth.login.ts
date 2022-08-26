@@ -1,4 +1,5 @@
 import { IsEmail, IsString } from 'class-validator';
+import { IUser } from '@social-network/interfaces';
 
 export namespace AccountAuthLogin {
   export const topic = 'account/auth.login.command';
@@ -13,5 +14,6 @@ export namespace AccountAuthLogin {
 
   export class Response {
     access_token: string;
+    user: IUser;
   }
 }

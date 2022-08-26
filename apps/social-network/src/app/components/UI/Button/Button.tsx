@@ -4,7 +4,7 @@ import './Button.scss';
 
 export const Button = ({ className, ...props }: IButtonInterface) => {
   return (
-    <button className={cn(className)} {...props}>
+    <button className={cn(className, 'button')} {...props}>
       Button
     </button>
   );

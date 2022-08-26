@@ -21,7 +21,7 @@ import { ReactComponent as mapDrawer } from './svgs/map-drawer.svg';
 import { ReactComponent as message } from './svgs/message.svg';
 import { ReactComponent as messageTwo } from './svgs/message-2.svg';
 import { ReactComponent as more } from './svgs/more.svg';
-import { ReactComponent as moreRect } from './svgs/more-react.svg';
+import { ReactComponent as moreRect } from './svgs/more-rect.svg';
 import { ReactComponent as notification } from './svgs/notification.svg';
 import { ReactComponent as people } from './svgs/people.svg';
 import { ReactComponent as peopleCloud } from './svgs/people-cloud.svg';
@@ -38,8 +38,10 @@ import { ReactComponent as smile } from './svgs/smile.svg';
 import { ReactComponent as tweet } from './svgs/tweet.svg';
 import { ReactComponent as video } from './svgs/video.svg';
 import { ReactComponent as logo } from './svgs/logo.svg';
+import { ReactComponent as closeEye } from './svgs/close-eye.svg';
 
 export const icons = {
+  closeEye,
   logo,
   ArrowTop,
   Bag,
@@ -86,4 +88,6 @@ export type IconNames = keyof typeof icons;
 export interface IIconInterface
   extends DetailedHTMLProps<HTMLAttributes<SVGSVGElement>, SVGSVGElement> {
   icon: IconNames;
+  width?: string;
+  height?: string;
 }

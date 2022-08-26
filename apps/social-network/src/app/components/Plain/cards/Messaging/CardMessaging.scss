@@ -1,0 +1,12 @@
+.messaging__card-list {
+  @apply flex flex-col gap-y-4;
+  &__info {
+    @apply flex items-center justify-between;
+    & > div {
+      @apply flex;
+    }
+  }
+  &__search {
+    @apply w-full;
+  }
+}

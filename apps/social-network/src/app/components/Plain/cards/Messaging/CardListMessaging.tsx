@@ -1,5 +1,6 @@
-import { Icon, Input } from '@client/components/UI';
+import { Icon, Input, Card } from '@client/components/index';
 import { Search } from '@client/components/Plain';
+import cn from 'classnames';
 import { CardMessaging } from './CardMessaging';
 import { ICardListMessagingInterface } from './CardMessaging.interface';
 
@@ -9,13 +10,18 @@ export const CardListMessaging = ({
   ...props
 }: ICardListMessagingInterface) => {
   return (
-    <section>
-      <div>
+    <Card className={cn('messaging__card-list', className)} {...props}>
+      <div className="messaging__card-list__info">
         <h1>Messaging</h1>
-        <Icon icon="share" />
-        <Icon icon="more" />
+        <div>
+          <Icon icon="share" />
+          <Icon icon="more" />
+        </div>
       </div>
-      <Search placeholder="Search messaging" />
+      <Search
+        placeholder="Search messaging"
+        className="messaging__card-list__search"
+      />
       {messages.length > 0 ? (
         <ul {...props}>
           {messages.map((msg) => (
@@ -25,6 +31,6 @@ export const CardListMessaging = ({
       ) : (
         <></>
       )}
-    </section>
+    </Card>
   );
 };

@@ -1,0 +1,18 @@
+.header {
+  @apply flex justify-between flex-wrap gap-2;
+  & > * {
+    @apply justify-start;
+  }
+  &__search {
+    @apply mx-auto;
+  }
+  &__logo {
+    @apply mx-auto;
+  }
+  @screen md {
+    @apply flex-nowrap;
+    &__search {
+      @apply mx-0;
+    }
+  }
+}

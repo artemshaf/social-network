@@ -7,3 +7,5 @@ export * from './Notifications';
 export * from './Post';
 export * from './TopMenu';
 export * from './Request';
+export * from './Menu';
+export * from './Account';

@@ -1,0 +1,16 @@
+.write-messaging {
+  &__container {
+    @apply flex items-center;
+  }
+
+  &__input {
+    @apply mr-auto;
+    & > input {
+      @apply bg-white;
+    }
+  }
+
+  &__actions {
+    @apply flex;
+  }
+}

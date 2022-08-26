@@ -5,7 +5,7 @@ import { ILogoIntreface } from './Logo.intreface';
 export const Logo = ({ className, children, ...props }: ILogoIntreface) => {
   return (
     <div className={cn(className)} {...props}>
-      <Icon icon="logo" style={{ width: '117px', height: '29px' }} />
+      <Icon icon="logo" width={'117px'} />
       {children}
     </div>
   );

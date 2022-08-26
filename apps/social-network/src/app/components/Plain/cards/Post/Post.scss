@@ -1,0 +1,50 @@
+.post {
+  &-item {
+    @apply flex flex-col gap-y-md;
+    &__info {
+      @apply flex gap-x-5;
+      &__avatar {
+        @apply w-[70px] h-[70px];
+        &_descr {
+          @apply flex flex-col gap-y-1;
+          &__list {
+            @apply flex gap-x-3;
+            &__name {
+              @apply font-bold;
+            }
+
+            &__time {
+              @apply text-grey-sm;
+            }
+          }
+
+          &__company {
+            @apply text-grey-sm;
+          }
+        }
+      }
+    }
+
+    &__text {
+      &__container {
+      }
+
+      &__btn {
+      }
+    }
+
+    &__img {
+      @apply object-cover w-[100%];
+    }
+
+    &__actions__list {
+      @apply flex gap-x-4;
+      &-item {
+        &:last-child {
+          @apply ml-auto;
+        }
+        @apply flex gap-x-1 items-center;
+      }
+    }
+  }
+}

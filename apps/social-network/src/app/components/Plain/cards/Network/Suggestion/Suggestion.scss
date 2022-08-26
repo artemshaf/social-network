@@ -1,0 +1,19 @@
+.suggestion {
+  @apply flex flex-col;
+
+  &__close {
+    @apply absolute top-[5%] right-[5%] translate-x-[5%] translate-y-[5%] bg-white rounded-full w-[30px] h-[30px];
+  }
+
+  &__img {
+    &__container {
+      @apply relative;
+    }
+    @apply w-full h-[30%];
+  }
+
+  &__avatar {
+    @apply w-[35%] h-[35%] mx-auto;
+    transform: translateY(-50%);
+  }
+}

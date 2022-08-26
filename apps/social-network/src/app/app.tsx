@@ -1,9 +1,7 @@
+import { AppRouter } from './components';
+
 export function App() {
-  return (
-    <>
-      <div className="" />
-    </>
-  );
+  return <AppRouter />;
 }
 
 export default App;

@@ -15,6 +15,7 @@ export class AuthService {
   async login(id: string) {
     return {
       access_token: await this.jwtService.signAsync({ id }),
+      user: await this.userRepository.findById(id),
     };
   }
 
@@ -30,7 +31,7 @@ export class AuthService {
     }).setPassword(dto.password);
 
     const newUser = await this.userRepository.create(newUserEntity);
-    return { email: newUser.email };
+    return { user: newUser };
   }
 
   async validateUser(email: string, password: string) {

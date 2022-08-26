@@ -1,13 +1,21 @@
-import { icons, IIconInterface } from './Icon.interface';
 import cn from 'classnames';
+import { icons, IIconInterface } from './Icon.interface';
 import './Icon.scss';
 
-export const Icon = ({ icon, className, ...props }: IIconInterface) => {
+export const Icon = ({
+  width,
+  height,
+  icon,
+  className,
+  ...props
+}: IIconInterface) => {
   const CurrentIcon = icons[icon];
 
   return (
-    <span className="icon__container">
-      <CurrentIcon className={cn(className)} {...props} />
-    </span>
+    <CurrentIcon
+      className={cn(className, 'icon')}
+      style={{ width, height }}
+      {...props}
+    />
   );
 };

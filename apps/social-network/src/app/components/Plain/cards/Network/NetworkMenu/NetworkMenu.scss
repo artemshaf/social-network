@@ -1,0 +1,10 @@
+.network-menu {
+  &__list {
+    @apply flex flex-col gap-y-3;
+    &-item {
+      & > a {
+        @apply flex items-center gap-x-3;
+      }
+    }
+  }
+}

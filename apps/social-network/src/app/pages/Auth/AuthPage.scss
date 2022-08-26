@@ -1,0 +1,16 @@
+.auth-page {
+  @apply flex items-center justify-center;
+  &__img {
+    @apply mx-auto md:scale-75 hidden md:block;
+  }
+
+  &__form {
+    @apply flex flex-col gap-y-3 w-full;
+    &__info {
+      @apply flex items-center justify-between;
+    }
+    @screen md {
+      @apply w-2/3 max-w-[700px];
+    }
+  }
+}

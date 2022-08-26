@@ -1,0 +1,15 @@
+.input {
+  @apply py-2 px-5 outline-none bg-grey-sm w-full;
+
+  &__block {
+    @apply flex bg-grey-sm w-full items-center justify-center;
+    & svg {
+      & path {
+        @apply flex items-center justify-center;
+      }
+    }
+    &_error {
+      @apply border-red-600 border;
+    }
+  }
+}

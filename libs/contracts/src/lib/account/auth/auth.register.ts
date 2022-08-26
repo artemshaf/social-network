@@ -1,4 +1,5 @@
 import { IsEmail, IsString } from 'class-validator';
+import { IUser } from '@social-network/interfaces';
 
 export namespace AccountAuthRegister {
   export const topic = 'account/auth.register.command';
@@ -12,6 +13,6 @@ export namespace AccountAuthRegister {
   }
 
   export class Response {
-    email: string;
+    user: IUser;
   }
 }

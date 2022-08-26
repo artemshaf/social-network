@@ -2,5 +2,11 @@
 @tailwind base;
 @tailwind utilities;
 
+@import './styles/mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  @apply bg-grey-sm p-3 md:p-md mb-[182px] min-h-screen;
+}
+
 /* You can add global styles to this file, and also import other style files */

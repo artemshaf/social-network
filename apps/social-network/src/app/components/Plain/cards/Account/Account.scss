@@ -1,0 +1,8 @@
+.account-card {
+  &__list {
+    @apply flex gap-y-5 flex-col;
+    &-item {
+      @apply flex justify-between;
+    }
+  }
+}

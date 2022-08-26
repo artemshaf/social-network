@@ -1,0 +1,18 @@
+.new-post {
+  @apply flex flex-wrap;
+  & > input {
+    @apply w-full;
+  }
+  & > div {
+    @apply flex gap-x-2 ml-auto;
+    & svg {
+      @apply cursor-pointer;
+    }
+  }
+  & * {
+    @apply bg-white;
+  }
+  @screen sm {
+    @apply flex-nowrap;
+  }
+}

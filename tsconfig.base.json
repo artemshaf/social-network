@@ -18,7 +18,8 @@
     "paths": {
       "@social-network/contracts": ["libs/contracts/src/index.ts"],
       "@social-network/interfaces": ["libs/interfaces/src/index.ts"],
-      "@client/components/*": ["apps/social-network/src/app/components/*"]
+      "@client/components/*": ["apps/social-network/src/app/components/*"],
+      "@client/*": ["apps/social-network/src/app/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

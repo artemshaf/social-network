@@ -5,5 +5,9 @@ export interface IInputInterface
     HTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
+  width?: 'full' | 'auto';
   type?: string;
+  titleText?: string;
+  error?: string;
+  icons?: JSX.Element;
 }

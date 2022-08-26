@@ -1,15 +1,21 @@
 import { Icon } from '@client/components/UI';
+import {
+  HOME_ROUTE,
+  MESSAGING_ROUTE,
+  NETWORK_ROUTE,
+  NOTIFICATION_ROUTE,
+} from '@client/utils/consts';
 
 export const MenuData = [
   {
     icon: <Icon icon="home" />,
     text: 'Home',
-    link: '',
+    link: HOME_ROUTE,
   },
   {
     icon: <Icon icon="people" />,
     text: 'Network',
-    link: '',
+    link: NETWORK_ROUTE,
   },
   {
     icon: <Icon icon="Bag" />,
@@ -19,12 +25,12 @@ export const MenuData = [
   {
     icon: <Icon icon="messageTwo" />,
     text: 'Messaging',
-    link: '',
+    link: MESSAGING_ROUTE,
   },
   {
     icon: <Icon icon="notification" />,
     text: 'Notifications',
-    link: '',
+    link: NOTIFICATION_ROUTE,
   },
   {
     icon: <Icon icon="dots" />,
