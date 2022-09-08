@@ -14,9 +14,7 @@ import { FileRepository } from './repository/file.repository';
     ConfigModule.forRoot({ envFilePath: '.envs/.files.env', isGlobal: true }),
     MongooseModule.forRootAsync(getMongoConfig()),
     RMQModule.forRootAsync(getRMQConfig()),
-    MulterModule.register({
-      dest: '/tmp/upload',
-    }),
+    MulterModule.registerAsync(getMulterConfig()),
   ],
   controllers: [AppController],
   providers: [FileRepository],

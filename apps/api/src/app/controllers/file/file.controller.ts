@@ -19,16 +19,20 @@ import {
   FileFindInfo,
   FileWriteFile,
 } from '@social-network/contracts';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import {
+  AnyFilesInterceptor,
+  FilesInterceptor,
+} from '@nestjs/platform-express';
 import { Express } from 'express';
 import { Multer } from 'multer';
+import multer = require('multer');
 
 @Controller('file')
 export class FileController {
   constructor(private readonly rmqService: RMQService) {}
 
   @Post('write-files')
-  @UseInterceptors(AnyFilesInterceptor())
+  @UseInterceptors(FilesInterceptor('files'))
   async writeFile(
     @Body() { metadata }: FileWriteFile.Request,
     @UploadedFiles() files: Array<Express.Multer.File>

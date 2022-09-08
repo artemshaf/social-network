@@ -38,18 +38,21 @@ export class FileRepository {
     metadata?: Pick<IGridFSWriteOption, 'metadata'>
   ) {
     // const storage = multer.diskStorage({
-    //   destination: (req, file, cb) => {
-    //     cb(null, '/uploads');
+    //   // notice you are calling the multer.diskStorage() method here, not multer()
+    //   destination: function (req, file, cb) {
+    //     console.log(file);
+
+    //     cb(null, 'uploads/');
     //   },
-    //   filename: (req, file, cb) => {
-    //     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    //     cb(null, file.fieldname + '-' + uniqueSuffix);
+    //   filename: function (req, file, cb) {
+    //     cb(null, file.filename + '-' + Date.now());
     //   },
     // });
+    // const upload = multer({ storage }); //provide the return value from
+    // upload.array('files');
     const uploadFiles = files.map(async (file) => {
-      await this.writeStream(file);
       return await this.fileModel.uploadFile(
-        `C:\\Users\\schaf\\Pictures\\favs\\android-chrome-192x192.png`,
+        file.path,
         {
           filename: file.originalname,
           contentType: file.mimetype,

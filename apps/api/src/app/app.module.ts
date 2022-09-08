@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { MulterModule } from '@nestjs/platform-express';
 import { RMQModule } from 'nestjs-rmq';
 import { getJWTConfig } from './configs/jwt.config';
+import { getMulterConfig } from './configs/multer.config';
 import { getRMQConfig } from './configs/rmq.config';
 import { AuthController } from './controllers/account/auth/auth.controller';
 import { UserProfileController } from './controllers/account/profile/user-profile.controller';
@@ -18,6 +20,7 @@ import { JwtStratagy } from './strategy/jwt.stratagy';
     ConfigModule.forRoot({ envFilePath: '.envs/.api.env', isGlobal: true }),
     RMQModule.forRootAsync(getRMQConfig()),
     JwtModule.registerAsync(getJWTConfig()),
+    MulterModule.registerAsync(getMulterConfig()),
     PassportModule,
   ],
   controllers: [
