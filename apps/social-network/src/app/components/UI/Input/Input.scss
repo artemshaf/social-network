@@ -12,4 +12,7 @@
       @apply border-red-600 border;
     }
   }
+  &_error {
+    @apply text-red-600;
+  }
 }

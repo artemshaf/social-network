@@ -1,5 +1,14 @@
+export interface IComments {
+  _id: string;
+  user: string;
+  text: string;
+  date: Date;
+}
+
 export interface ITweet {
-  id: string;
-  userId: string;
-  content: string;
+  user: string;
+  text?: string;
+  location: string;
+  likes: string[];
+  comments: IComments[];
 }

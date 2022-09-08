@@ -14,5 +14,29 @@
   "/music-api": {
     "target": "http://localhost:3333",
     "secure": false
+  },
+  "/apps-account-src-app-token-token-api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  },
+  "/account-src-app-token-token-api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  },
+  "/account-token-api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  },
+  "/chat-api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  },
+  "/notification-api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  },
+  "/files-api": {
+    "target": "http://localhost:3333",
+    "secure": false
   }
 }

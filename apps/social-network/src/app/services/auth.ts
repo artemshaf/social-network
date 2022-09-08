@@ -10,15 +10,21 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: baseAuth }),
   endpoints: (build) => ({
-    loginUser: build.query<IUser, AccountAuthLogin.Request>({
+    loginUser: build.query<AccountAuthLogin.Response, AccountAuthLogin.Request>(
+      {
+        query: (body) => ({
+          method: 'POST',
+          url: '/login',
+          body,
+        }),
+      }
+    ),
+    registerUser: build.query<
+      AccountAuthRegister.Response,
+      AccountAuthRegister.Request
+    >({
       query: (body) => ({
         method: 'POST',
-        url: '/login',
-        body,
-      }),
-    }),
-    registerUser: build.query<IUser, AccountAuthRegister.Request>({
-      query: (body) => ({
         url: '/register',
         body,
       }),

@@ -8,7 +8,7 @@ import {
   UserRole,
 } from '@social-network/interfaces';
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, _id: true })
 export class User extends Document implements IUser {
   @Prop({ required: true })
   email: string;
@@ -26,15 +26,14 @@ export class User extends Document implements IUser {
   @Prop({ type: Object, default: {} })
   profileUser: IProfileUser;
 
-  @Prop({ type: Types.Array<ITweet>, default: [] })
-  tweets: ITweet[];
+  // @Prop({ type: Types.Array<ITweet>, default: [] })
+  // tweets: ITweet[];
 
-  @Prop({ type: Types.Array<IFriend>, default: [] })
-  friends: IFriend[];
+  // @Prop({ type: Types.Array<IFriend>, default: [] })
+  // friends: IFriend[];
 
   @Prop({ default: false })
   online: boolean;
-
   @Prop({ default: false })
   ban: boolean;
 }

@@ -13,7 +13,8 @@ export namespace AccountAuthLogin {
   }
 
   export class Response {
-    access_token: string;
+    accessToken: string;
+    refreshToken: string;
     user: IUser;
   }
 }

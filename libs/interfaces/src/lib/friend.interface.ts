@@ -11,8 +11,13 @@ export enum InviteStatus {
   Rejected = 'Rejected',
 }
 
-export interface IFriend {
-  id: string;
+export interface IFollowers {
+  user: string;
   type: friendType;
-  request_type: InviteStatus;
+  inviteStatus: InviteStatus;
+}
+export interface IFriend {
+  user: string;
+  followers: IFollowers[];
+  following: IFollowers[];
 }

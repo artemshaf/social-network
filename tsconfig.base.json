@@ -15,12 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
+    "noPropertyAccessFromIndexSignature": false,
     "paths": {
-      "@social-network/contracts": ["libs/contracts/src/index.ts"],
-      "@social-network/interfaces": ["libs/interfaces/src/index.ts"],
+      "@client/*": ["apps/social-network/src/app/*"],
       "@client/components/*": ["apps/social-network/src/app/components/*"],
-      "@client/*": ["apps/social-network/src/app/*"]
+      "@social-network/contracts": ["libs/contracts/src/index.ts"],
+      "@social-network/interfaces": ["libs/interfaces/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules"]
 }

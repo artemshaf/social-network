@@ -5,9 +5,11 @@ import { PassportModule } from '@nestjs/passport';
 import { RMQModule } from 'nestjs-rmq';
 import { getJWTConfig } from './configs/jwt.config';
 import { getRMQConfig } from './configs/rmq.config';
-import { AuthController } from './controllers/auth/auth.controller';
-import { UserFriendController } from './controllers/user/friends/user-friends.controller';
-import { UserProfileController } from './controllers/user/profile/user-profile.controller';
+import { AuthController } from './controllers/account/auth/auth.controller';
+import { UserProfileController } from './controllers/account/profile/user-profile.controller';
+import { ChatController } from './controllers/chat/chat.controller';
+import { FileController } from './controllers/file/file.controller';
+import { FriendsController } from './controllers/friends/friends.controller';
 import { UserTweetsController } from './controllers/tweets/tweets.controller';
 import { JwtStratagy } from './strategy/jwt.stratagy';
 
@@ -20,9 +22,11 @@ import { JwtStratagy } from './strategy/jwt.stratagy';
   ],
   controllers: [
     AuthController,
-    UserFriendController,
     UserProfileController,
     UserTweetsController,
+    FriendsController,
+    ChatController,
+    FileController,
   ],
   providers: [JwtStratagy],
 })

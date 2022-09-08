@@ -4,53 +4,81 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AccountUserTweets } from '@social-network/contracts';
 import { RMQService } from 'nestjs-rmq';
-import { JWTAuthGuard } from '../../guards/jwt.guard';
+import {
+  TweetCommentAdd,
+  TweetCommentDelete,
+  TweetFind,
+  TweetLike,
+  TweetRemove,
+} from '@social-network/contracts';
 
 @Controller('tweets')
 export class UserTweetsController {
   constructor(private readonly rmqService: RMQService) {}
 
-  @UseGuards(JWTAuthGuard)
-  @Get()
-  async get(@Body() dto: AccountUserTweets.Request) {
+  // @UseGuards(JWTAuthGuard)
+  @Get(':id')
+  async get(@Param() dto: TweetFind.Request) {
     try {
-      return await this.rmqService.send<
-        AccountUserTweets.Request,
-        AccountUserTweets.Response
-      >(AccountUserTweets.topic, dto);
+      return await this.rmqService.send<TweetFind.Request, TweetFind.Response>(
+        TweetFind.topic,
+        dto
+      );
     } catch (e) {
-      throw new BadRequestException('');
+      throw new BadRequestException('@Controller(tweets)');
     }
   }
 
-  @UseGuards(JWTAuthGuard)
-  @Post()
-  async add(@Body() dto: AccountUserTweets.Request) {
+  @Post('comment-add')
+  async addComment(@Body() dto: TweetCommentAdd.Request) {
     try {
       return await this.rmqService.send<
-        AccountUserTweets.Request,
-        AccountUserTweets.Response
-      >(AccountUserTweets.topic, dto);
+        TweetCommentAdd.Request,
+        TweetCommentAdd.Response
+      >(TweetCommentAdd.topic, dto);
     } catch (e) {
-      throw new BadRequestException('');
+      throw new BadRequestException('@Controller(tweets)');
     }
   }
 
-  @UseGuards(JWTAuthGuard)
+  @Delete('deleteComment')
+  async deleteComment(@Body() dto: TweetCommentDelete.Request) {
+    try {
+      return await this.rmqService.send<
+        TweetCommentDelete.Request,
+        TweetCommentDelete.Response
+      >(TweetCommentDelete.topic, dto);
+    } catch (e) {
+      throw new BadRequestException('@Controller(tweets)');
+    }
+  }
+
+  @Post('like')
+  async like(@Body() dto: TweetLike.Request) {
+    try {
+      return await this.rmqService.send<TweetLike.Request, TweetLike.Response>(
+        TweetLike.topic,
+        dto
+      );
+    } catch (e) {
+      throw new BadRequestException('@Controller(tweets)');
+    }
+  }
+
   @Delete()
-  async delete(@Body() dto: AccountUserTweets.Request) {
+  async remove(@Body() dto: TweetRemove.Request) {
     try {
       return await this.rmqService.send<
-        AccountUserTweets.Request,
-        AccountUserTweets.Response
-      >(AccountUserTweets.topic, dto);
+        TweetRemove.Request,
+        TweetRemove.Response
+      >(TweetRemove.topic, dto);
     } catch (e) {
-      throw new BadRequestException('');
+      throw new BadRequestException('@Controller(tweets)');
     }
   }
 }

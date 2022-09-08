@@ -1,22 +1,33 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../index';
 import { IUser } from '@social-network/interfaces';
 
-const initialState = {
+interface IInitialState {
+  user: IUser;
+  isAuth: boolean;
+}
+
+const initialState: IInitialState = {
   user: {} as IUser,
   isAuth: false,
-  isLoading: false,
 };
-const name = '@@auth';
 
-export const login = createAsyncThunk(
-  `${name}/login`,
-  async (_, { rejectWithValue, extra }) => {}
-);
+const name = '@@auth';
 
 export const authSlice = createSlice({
   initialState,
   name,
-  reducers: {},
+  reducers: {
+    setAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
+    },
+    setUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    },
+  },
 });
 
 export const authReducer = authSlice.reducer;
+export const { setAuth, setUser } = authSlice.actions;
+
+export const selectUserName = (state: RootState): IUser => state.auth.user;

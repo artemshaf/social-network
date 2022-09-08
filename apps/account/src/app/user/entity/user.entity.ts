@@ -1,23 +1,12 @@
-import {
-  friendType,
-  IFriend,
-  InviteStatus,
-  IProfileUser,
-  ITweet,
-  IUser,
-  UserRole,
-} from '@social-network/interfaces';
+import { IUser, UserRole } from '@social-network/interfaces';
 import { compare, genSalt, hash } from 'bcrypt';
 
 export class UserEntity implements IUser {
-  online?: boolean;
   _id?: string;
   email: string;
   passwordHash: string;
-  profileUser: IProfileUser;
   userRole: UserRole;
-  tweets: ITweet[];
-  friends: IFriend[];
+  online?: boolean;
   ban: boolean;
 
   constructor(user: IUser) {
@@ -25,10 +14,7 @@ export class UserEntity implements IUser {
     this._id = user._id;
     this.email = user.email;
     this.passwordHash = user.passwordHash;
-    this.profileUser = user.profileUser;
     this.userRole = user.userRole;
-    this.tweets = user.tweets;
-    this.friends = user.friends;
     this.ban = user.ban;
   }
 
@@ -42,48 +28,53 @@ export class UserEntity implements IUser {
     return compare(password, this.passwordHash);
   }
 
-  public async addFriendRequest(dto: IFriend) {
-    this.friends.push({
-      ...dto,
-    });
+  public setOnline(online: boolean) {
+    this.online = online;
     return this;
   }
 
-  public async deleteFriendRequest(id: string) {
-    this.friends = this.friends.filter((item) => item.id !== id);
-    return this;
-  }
+  // public async addFriendRequest(dto: IFriend) {
+  //   this.friends.push({
+  //     ...dto,
+  //   });
+  //   return this;
+  // }
 
-  public async addFriend(id: string) {
-    const friend = await this.friends.find((item) => item.id === id);
-    friend.request_type = InviteStatus.Accepted;
-    return this;
-  }
+  // public async deleteFriendRequest(id: string) {
+  //   this.friends = this.friends.filter((item) => item.id !== id);
+  //   return this;
+  // }
 
-  public async deleteFriend(id: string, request_type: InviteStatus) {
-    const friend = await this.friends.find((item) => item.id === id);
-    friend.request_type = request_type;
-    return this;
-  }
+  // public async addFriend(id: string) {
+  //   const friend = await this.friends.find((item) => item.id === id);
+  //   friend.request_type = InviteStatus.Accepted;
+  //   return this;
+  // }
 
-  public async friendship(id: string) {
-    const friendReqType = await this.friends.find((item) => item.id === id)
-      .request_type;
-    if (friendReqType === 'Rejected') {
-      return false;
-    }
-    return true;
-  }
+  // public async deleteFriend(id: string, request_type: InviteStatus) {
+  //   const friend = await this.friends.find((item) => item.id === id);
+  //   friend.request_type = request_type;
+  //   return this;
+  // }
 
-  public getProfile(): IProfileUser {
-    return this.profileUser;
-  }
+  // public async friendship(id: string) {
+  //   const friendReqType = await this.friends.find((item) => item.id === id)
+  //     .request_type;
+  //   if (friendReqType === 'Rejected') {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  public getTweets(): ITweet[] {
-    return this.tweets;
-  }
+  // public getProfile(): IProfileUser {
+  //   return this.profileUser;
+  // }
 
-  public getFriends(): IFriend[] {
-    return this.friends;
-  }
+  // public getTweets(): ITweet[] {
+  //   return this.tweets;
+  // }
+
+  // public getFriends(): IFriend[] {
+  //   return this.friends;
+  // }
 }

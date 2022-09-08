@@ -4,12 +4,15 @@
   "projects": {
     "account": "apps/account",
     "api": "apps/api",
+    "chat": "apps/chat",
     "contracts": "libs/contracts",
+    "files": "apps/files",
     "friends": "apps/friends",
     "interfaces": "libs/interfaces",
     "music": "apps/music",
-    "news": "apps/news",
+    "notification": "apps/notification",
     "social-network": "apps/social-network",
-    "social-network-e2e": "apps/social-network-e2e"
+    "social-network-e2e": "apps/social-network-e2e",
+    "tweets": "apps/tweets"
   }
 }

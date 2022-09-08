@@ -3,11 +3,14 @@ import './AuthPage.scss';
 import { Button, Card, Icon, Input, Logo } from '@client/components/index';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authSchema } from './resolver';
 import AuthImg from '@client/../assets/auth/people.png';
-import { useLazyLoginUserQuery } from '../../services/auth';
-
+import { useLazyLoginUserQuery } from '@client/services/auth';
+import { HOME_ROUTE } from '@client/utils/consts';
+import { useNavigate } from 'react-router-dom';
+import { authStorage } from '../../store/auth/storage/auth.storage';
+import { useAppDispatch, setAuth, setUser } from '@client/store';
 export interface Inputs {
   email: string;
   password: string;
@@ -18,16 +21,25 @@ export const AuthPage = (props: IAuthPageInterface) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    setError,
   } = useForm<Inputs>({ resolver: joiResolver(authSchema) });
 
   const [trigger, result] = useLazyLoginUserQuery();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     await trigger(data);
-    // console.log(result.data);
   };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      const { accessToken, refreshToken, user } = result.data!;
+      dispatch(setAuth(true));
+      dispatch(setUser(user));
+      authStorage(accessToken, refreshToken);
+      navigate(HOME_ROUTE);
+    }
+  }, [result.isSuccess]);
 
   return (
     <section className="auth-page">
@@ -53,7 +65,7 @@ export const AuthPage = (props: IAuthPageInterface) => {
           error={errors.password ? errors.password.message : ''}
           {...register('password')}
         />
-        <Button onClick={() => console.log(errors)}>Register</Button>
+        <Button onClick={() => console.log(errors)}>Sign Up</Button>
       </Card>
       <img className="auth-page__img" src={AuthImg} />
     </section>

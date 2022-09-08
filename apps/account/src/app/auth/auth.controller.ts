@@ -2,6 +2,7 @@ import { Body, Controller } from '@nestjs/common';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import {
   AccountAuthLogin,
+  AccountAuthLogout,
   AccountAuthRegister,
 } from '@social-network/contracts';
 import { AuthService } from './auth.service';
@@ -17,6 +18,12 @@ export class AuthController {
   ): Promise<AccountAuthLogin.Response> {
     const { id } = await this.authService.validateUser(email, password);
     return this.authService.login(id);
+  }
+
+  @RMQValidate()
+  @RMQRoute(AccountAuthLogout.topic)
+  async logout(@Body() { id }: AccountAuthLogout.Request) {
+    return this.authService.logout(id);
   }
 
   @RMQValidate()

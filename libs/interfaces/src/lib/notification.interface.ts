@@ -1,10 +1,18 @@
-import { IUser } from './user.interface';
-
+export enum INotificationType {
+  newLike = 'new Like',
+  newComment = 'new Comment',
+  newFollower = 'new Follower',
+}
 export interface INotification {
-  user: IUser;
+  type: INotificationType;
+  user: string;
+  post: string;
+  commentId: string;
   text: string;
-  comments: string;
-  reactions: string;
-  createdAt: Date;
-  updatedAt: Date;
+  date: Date;
+}
+export interface IUserNotification {
+  user: string;
+
+  notifications: INotification[];
 }

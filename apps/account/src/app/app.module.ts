@@ -7,6 +7,8 @@ import { RMQModule } from 'nestjs-rmq';
 import { getRMQConfig } from './configs/rmq.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
+import { TokenModule } from './token/token.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { getMongoConfig } from './configs/mongo.config';
     RMQModule.forRootAsync(getRMQConfig()),
     MongooseModule.forRootAsync(getMongoConfig()),
     UserModule,
+    TokenModule,
+    ProfileModule,
     AuthModule,
   ],
   controllers: [],

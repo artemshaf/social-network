@@ -15,6 +15,6 @@ export const getRMQConfig = (): IRMQServiceAsyncOptions => ({
     ],
     queueName: configService.get('AMQP_QUEUE_NAME') ?? '',
     prefetchCount: 64,
-    serviceName: configService.get('AMQP_SERVICE_NAME') ?? 'social-network',
+    serviceName: configService.get('AMQP_SERVICE_NAME') ?? 'social-network-api',
   }),
 });
