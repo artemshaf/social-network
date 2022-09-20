@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Profile, ProfileSchema } from './model/profile.model';
 import { ProfileCommand } from './profile.command';
 import { ProfileQueries } from './profile.queries';
-import { ProfileService } from './profile.service';
 import { ProfileRepository } from './repository/profile.repository';
 
 @Module({
@@ -16,12 +15,7 @@ import { ProfileRepository } from './repository/profile.repository';
     ]),
   ],
   controllers: [],
-  providers: [
-    ProfileService,
-    ProfileRepository,
-    ProfileCommand,
-    ProfileQueries,
-  ],
+  providers: [ProfileRepository, ProfileCommand, ProfileQueries],
   exports: [ProfileRepository],
 })
 export class ProfileModule {}

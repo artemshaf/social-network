@@ -7,6 +7,7 @@ import { TokenCommands } from './token.command';
 import { TokenQueries } from './token.queries';
 import { JwtModule } from '@nestjs/jwt';
 import { getJWTConfig } from '../configs/jwt.config';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { getJWTConfig } from '../configs/jwt.config';
       },
     ]),
     JwtModule.registerAsync(getJWTConfig()),
+    UserModule,
   ],
   providers: [TokenService, TokenCommands, TokenQueries],
   controllers: [],

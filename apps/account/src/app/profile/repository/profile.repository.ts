@@ -5,7 +5,7 @@ import {
   IUserLocation,
   userSex,
 } from '@social-network/interfaces';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { AccountUserFindProfile } from '@social-network/contracts';
 import { ProfileEntity } from '../entity/profile.entity';
 import { Profile } from '../model/profile.model';
@@ -21,8 +21,12 @@ export class ProfileRepository {
     return createdProfile.save();
   }
 
-  async findById(user: string) {
-    return this.profileModel.findOne({ id: user }).exec();
+  async findByUser(user: string) {
+    return this.profileModel
+      .findOne({
+        user: new Types.ObjectId(user),
+      })
+      .exec();
   }
 
   async findByFullName({
@@ -55,12 +59,30 @@ export class ProfileRepository {
   }
 
   async update({ user, profile }) {
+    console.log(user);
+    console.log(profile);
+
     return this.profileModel
-      .findOneAndUpdate({ id: user }, { $set: { ...profile } })
+      .findOneAndUpdate(
+        { user: new Types.ObjectId(user) },
+        { $set: { ...profile } }
+      )
       .exec();
   }
 
   async delete(user: string) {
     return this.profileModel.findOneAndDelete({ user }).exec();
+  }
+
+  async findSample(size: number = 4) {
+    return this.profileModel
+      .aggregate([
+        {
+          $sample: {
+            size,
+          },
+        },
+      ])
+      .exec();
   }
 }

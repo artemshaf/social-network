@@ -10,14 +10,17 @@ import {
 import {
   AccountUserFindProfile,
   AccountUserProfile,
+  AccountUserProfileFindSample,
   AccountUserUpdateProfile,
 } from '@social-network/contracts';
 import { RMQService } from 'nestjs-rmq';
+import { PublicRoute } from '../../../decorator/public.decorator';
 
 @Controller('profile')
 export class UserProfileController {
   constructor(private readonly rmqService: RMQService) {}
 
+  @PublicRoute()
   @Get(':id')
   async get(@Param() { id }: AccountUserProfile.Request) {
     try {
@@ -30,6 +33,20 @@ export class UserProfileController {
     }
   }
 
+  @PublicRoute()
+  @Post('find-sample')
+  async findSample(@Body() { size }: AccountUserProfileFindSample.Request) {
+    try {
+      return await this.rmqService.send<
+        AccountUserProfileFindSample.Request,
+        AccountUserProfileFindSample.Response
+      >(AccountUserProfileFindSample.topic, { size });
+    } catch (e) {
+      throw new BadRequestException(e || '@Controller(profile)');
+    }
+  }
+
+  @PublicRoute()
   @Post()
   async findByFullName(@Body() { fullName }: AccountUserFindProfile.Request) {
     try {

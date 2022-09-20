@@ -1,2 +1,11 @@
 .profilePage {
+  @apply flex flex-col gap-md;
+}
+
+.profile__card {
+  @apply p-3 flex flex-col justify-between relative;
+}
+
+.settings__icon {
+  @apply absolute top-3 right-3 cursor-pointer;
 }

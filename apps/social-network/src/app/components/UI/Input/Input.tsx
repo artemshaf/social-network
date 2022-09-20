@@ -19,7 +19,7 @@ export const Input = forwardRef(
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
-      <label className={width === 'full' ? 'w-full' : ''}>
+      <label className={cn(width === 'full' ? 'w-full' : '')}>
         {titleText ? <p>{titleText}</p> : <></>}
         <div
           className={cn(className, 'input__block', {

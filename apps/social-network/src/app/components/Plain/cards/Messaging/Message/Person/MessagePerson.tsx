@@ -1,13 +1,14 @@
 import { Card, UserAvatar } from '@client/components/index';
 import cn from 'classnames';
 import { IMessagePersonInterface } from './MessagePerson.interface';
+import styles from './MessagePerson.module.scss';
 
 export const MessagePerson = ({
   className,
   ...props
 }: IMessagePersonInterface) => {
   return (
-    <Card tag="li" className={cn(className)} {...props}>
+    <Card tag="li" className={cn(className, styles.list__item)} {...props}>
       <UserAvatar />
       <div>
         <div>

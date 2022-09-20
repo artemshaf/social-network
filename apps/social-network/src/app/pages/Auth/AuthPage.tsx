@@ -1,16 +1,23 @@
 import { IAuthPageInterface } from './AuthPage.interface';
 import './AuthPage.scss';
-import { Button, Card, Icon, Input, Logo } from '@client/components/index';
+import { Button, Card, Input, Logo } from '@client/components/index';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useEffect, useState } from 'react';
 import { authSchema } from './resolver';
 import AuthImg from '@client/../assets/auth/people.png';
-import { useLazyLoginUserQuery } from '@client/services/auth';
 import { HOME_ROUTE } from '@client/utils/consts';
-import { useNavigate } from 'react-router-dom';
-import { authStorage } from '../../store/auth/storage/auth.storage';
-import { useAppDispatch, setAuth, setUser } from '@client/store';
+import { Navigate, useNavigate } from 'react-router-dom';
+import {
+  selectError,
+  useAppSelector,
+  AuthLogin,
+  useAppDispatch,
+  selectUser,
+} from '@client/store';
+import { AuthService } from '@client/services';
+import { AccountAuthLogin } from '@social-network/contracts';
+
 export interface Inputs {
   email: string;
   password: string;
@@ -23,27 +30,34 @@ export const AuthPage = (props: IAuthPageInterface) => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: joiResolver(authSchema) });
 
-  const [trigger, result] = useLazyLoginUserQuery();
+  const authError = useAppSelector(selectError);
+  const userData = useAppSelector(selectUser);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    await trigger(data);
+    await dispatch(
+      AuthLogin({
+        email: data.email,
+        password: data.password,
+      })
+    );
   };
 
   useEffect(() => {
-    if (result.isSuccess) {
-      const { accessToken, refreshToken, user } = result.data!;
-      dispatch(setAuth(true));
-      dispatch(setUser(user));
-      authStorage(accessToken, refreshToken);
+    if (
+      localStorage.getItem('accessToken') &&
+      localStorage.getItem('refreshToken')
+    ) {
       navigate(HOME_ROUTE);
     }
-  }, [result.isSuccess]);
+  }, [userData]);
 
   return (
     <section className="auth-page">
       <Card
+        wrapper
         className="auth-page__form"
         tag="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -66,6 +80,7 @@ export const AuthPage = (props: IAuthPageInterface) => {
           {...register('password')}
         />
         <Button onClick={() => console.log(errors)}>Sign Up</Button>
+        {authError ? authError : <></>}
       </Card>
       <img className="auth-page__img" src={AuthImg} />
     </section>

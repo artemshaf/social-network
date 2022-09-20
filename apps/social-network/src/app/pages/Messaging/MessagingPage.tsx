@@ -7,24 +7,17 @@ import {
   Menu,
 } from '@client/components/index';
 import { MessageBlock } from '@client/components/index';
+import styles from './MessagingPage.module.scss';
 
 export const MessagingPage = ({
   className,
   ...props
 }: IMessagingPageInterface) => {
   return (
-    <section className={cn(className, 'network-page')} {...props}>
+    <section className={cn(className, styles.page)} {...props}>
       <Header />
-      <div className="network-page__content">
-        <div className="network-page__menu">
-          <Menu className="network-page__menu__nav" />
-          <Account />
-        </div>
-        <div className="network-page__network">
-          <CardListMessaging className="network-page__messagings" />
-          <MessageBlock />
-        </div>
-      </div>
+      <Menu className="network-page__menu__nav" />
+      <MessageBlock className={styles.message__block} />
     </section>
   );
 };

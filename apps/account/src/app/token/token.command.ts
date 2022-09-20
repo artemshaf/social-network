@@ -1,8 +1,8 @@
 import { Body, Controller } from '@nestjs/common';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import {
-  AccountUserTokenFind,
   AccountUserTokenGenerate,
+  AccountUserTokenRefresh,
   AccountUserTokenRemove,
   AccountUserTokenSave,
 } from '@social-network/contracts';
@@ -15,7 +15,7 @@ export class TokenCommands {
   @RMQValidate()
   @RMQRoute(AccountUserTokenGenerate.topic)
   async generateTokens(
-    @Body() user: AccountUserTokenGenerate.Request
+    @Body() { user }: AccountUserTokenGenerate.Request
   ): Promise<AccountUserTokenGenerate.Response> {
     return this.tokenService.generateTokens(user);
   }
@@ -31,16 +31,16 @@ export class TokenCommands {
   @RMQValidate()
   @RMQRoute(AccountUserTokenRemove.topic)
   async removeToken(
-    @Body() refreshToken: AccountUserTokenRemove.Request
+    @Body() { id }: AccountUserTokenRemove.Request
   ): Promise<AccountUserTokenRemove.Response> {
-    return this.tokenService.removeToken(refreshToken);
+    return this.tokenService.removeToken(id);
   }
 
   @RMQValidate()
-  @RMQRoute(AccountUserTokenFind.topic)
-  async findRefreshToken(
-    refreshToken: AccountUserTokenFind.Request
-  ): Promise<AccountUserTokenFind.Response> {
-    return this.tokenService.findRefreshToken(refreshToken);
+  @RMQRoute(AccountUserTokenRefresh.topic)
+  async refresh({
+    refreshToken,
+  }: AccountUserTokenRefresh.Request): Promise<AccountUserTokenRefresh.Response> {
+    return this.tokenService.refresh(refreshToken);
   }
 }

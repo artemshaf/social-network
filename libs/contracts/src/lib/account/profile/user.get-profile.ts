@@ -19,7 +19,7 @@ export namespace AccountUserProfile {
     photos?: string[] | undefined;
     sex?: userSex | undefined;
     bdate?: Date | undefined;
-    location?: IUserLocation | undefined;
+    location?: { city: string; country: string } | undefined;
     status?: string | undefined;
     phone?: string | undefined;
   }

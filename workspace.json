@@ -9,7 +9,6 @@
     "files": "apps/files",
     "friends": "apps/friends",
     "interfaces": "libs/interfaces",
-    "music": "apps/music",
     "notification": "apps/notification",
     "social-network": "apps/social-network",
     "social-network-e2e": "apps/social-network-e2e",

@@ -16,7 +16,9 @@ import {
   ChatMessageChatRemove,
   ChatMessageUserAdd,
   ChatMessageUserRemove,
+  FileDownloadFile,
   FileFindInfo,
+  FileFindMusic,
   FileWriteFile,
 } from '@social-network/contracts';
 import {
@@ -42,6 +44,30 @@ export class FileController {
         FileWriteFile.Request,
         FileWriteFile.Response
       >(FileWriteFile.topic, { files, metadata });
+    } catch (e) {
+      throw new BadRequestException(e ?? '');
+    }
+  }
+
+  @Get('download-files')
+  async downloadFile(@Body() { ids }: FileDownloadFile.Request) {
+    try {
+      return await this.rmqService.send<
+        FileDownloadFile.Request,
+        FileDownloadFile.Response
+      >(FileDownloadFile.topic, { ids });
+    } catch (e) {
+      throw new BadRequestException(e ?? '');
+    }
+  }
+
+  @Get('find-music')
+  async findMusic(@Body() {}: FileFindMusic.Request) {
+    try {
+      return await this.rmqService.send<
+        FileFindMusic.Request,
+        FileFindMusic.Response
+      >(FileFindMusic.topic, {});
     } catch (e) {
       throw new BadRequestException(e ?? '');
     }

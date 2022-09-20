@@ -1,0 +1,11 @@
+.files {
+  @apply p-3;
+}
+
+.actions {
+  @apply flex justify-between items-center;
+
+  &__button {
+    width: max(100px, 20vw);
+  }
+}

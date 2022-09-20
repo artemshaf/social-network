@@ -10,7 +10,7 @@ export const CardListMessaging = ({
   ...props
 }: ICardListMessagingInterface) => {
   return (
-    <Card className={cn('messaging__card-list', className)} {...props}>
+    <Card wrapper className={cn('messaging__card-list', className)} {...props}>
       <div className="messaging__card-list__info">
         <h1>Messaging</h1>
         <div>

@@ -1,35 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseAuth } from '@client/utils/consts';
-import { IUser } from '@social-network/interfaces';
 import {
   AccountAuthLogin,
+  AccountAuthLogout,
   AccountAuthRegister,
 } from '@social-network/contracts';
+import $api from './http';
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseAuth }),
-  endpoints: (build) => ({
-    loginUser: build.query<AccountAuthLogin.Response, AccountAuthLogin.Request>(
-      {
-        query: (body) => ({
-          method: 'POST',
-          url: '/login',
-          body,
-        }),
-      }
-    ),
-    registerUser: build.query<
-      AccountAuthRegister.Response,
-      AccountAuthRegister.Request
-    >({
-      query: (body) => ({
-        method: 'POST',
-        url: '/register',
-        body,
-      }),
-    }),
-  }),
-});
-
-export const { useLazyLoginUserQuery, useLazyRegisterUserQuery } = authApi;
+export class AuthService {
+  static async login(data: AccountAuthLogin.Request) {
+    return $api.post('/auth/login', data);
+  }
+  static async register(data: AccountAuthRegister.Request) {
+    return $api.post('/auth/register', data);
+  }
+  static async logout(data: AccountAuthLogout.Request) {
+    return $api.post('/auth/logout', data);
+  }
+}

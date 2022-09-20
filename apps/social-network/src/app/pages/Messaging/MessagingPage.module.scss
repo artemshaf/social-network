@@ -1,0 +1,7 @@
+.page {
+  @apply flex flex-col gap-md;
+}
+
+.message__block {
+  @apply flex;
+}

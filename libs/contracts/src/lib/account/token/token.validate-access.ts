@@ -6,13 +6,8 @@ export namespace AccountUserTokenValidateAccess {
 
   export class Request {
     @IsString()
-    user: string;
-    @IsString()
     accessToken: string;
   }
 
-  export class Response implements IToken {
-    user: string;
-    refreshToken: string;
-  }
+  export class Response {}
 }

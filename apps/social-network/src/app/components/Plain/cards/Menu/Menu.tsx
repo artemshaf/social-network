@@ -7,9 +7,9 @@ import cn from 'classnames';
 
 export const Menu = ({ className, ...props }: IMenuInterface) => {
   return (
-    <Card tag="ul" className={cn(className, 'menu')} {...props}>
+    <Card wrapper tag="ul" className={cn(className, 'menu')} {...props}>
       {MenuData.map((item) => (
-        <li className={cn('menu-item')}>
+        <li className={cn('menu-item')} key={item.text + item.link}>
           <Link to={item.link}>
             {item.icon}
             <span>{item.text}</span>

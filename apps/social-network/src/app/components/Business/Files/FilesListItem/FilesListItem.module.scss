@@ -1,0 +1,13 @@
+.file {
+  @apply flex gap-4 w-full;
+  @screen md {
+    width: calc(50% - 12px);
+  }
+
+  &__actions {
+    @apply ml-auto flex gap-2;
+  }
+
+  &__svg {
+  }
+}

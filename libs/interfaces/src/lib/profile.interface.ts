@@ -14,7 +14,10 @@ export interface IProfileUser {
   photos?: string[];
   sex?: userSex;
   bdate?: Date;
-  location?: IUserLocation;
+  location?: {
+    city: string;
+    country: string;
+  };
   status?: string;
   phone?: string;
 }

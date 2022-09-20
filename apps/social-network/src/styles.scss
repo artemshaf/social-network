@@ -9,4 +9,17 @@ body {
   @apply bg-grey-sm p-3 md:p-md mb-[182px] min-h-screen;
 }
 
+select,
+input {
+  @apply p-2 px-4 bg-grey-sm;
+}
+
+.hidden {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
 /* You can add global styles to this file, and also import other style files */

@@ -1,36 +1,20 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseFriend } from '@client/utils/consts';
 import {
   FriendAdd,
   FriendDelete,
   FriendFriends,
 } from '@social-network/contracts';
+import $api from './http';
 
-export const friendApi = createApi({
-  reducerPath: 'friendApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseFriend }),
-  endpoints: (build) => ({
-    getFriends: build.query<FriendFriends.Response, FriendFriends.Request>({
-      query: ({ id }) => ({
-        method: 'GET',
-        url: '/' + id,
-      }),
-    }),
-    addFriend: build.mutation<FriendAdd.Response, FriendAdd.Request>({
-      query: (body) => ({
-        method: 'POST',
-        url: '/',
-        body,
-      }),
-    }),
-    deleteFriend: build.mutation<FriendDelete.Response, FriendDelete.Request>({
-      query: (body) => ({
-        method: 'POST',
-        url: '/register',
-        body,
-      }),
-    }),
-  }),
-});
+export class FriendService {
+  public static prefixString = 'friends/';
 
-export const { useLazyGetFriendsQuery, useGetFriendsQuery } = friendApi;
+  static async getFriends({ id }: FriendFriends.Request) {
+    return $api.get(this.prefixString + id);
+  }
+  static async addFriend({ from, to }: FriendAdd.Request) {
+    return $api.post(this.prefixString, { from, to });
+  }
+  static async deleteFriend(data: FriendDelete.Request) {
+    return $api.post(this.prefixString + 'delete', data);
+  }
+}

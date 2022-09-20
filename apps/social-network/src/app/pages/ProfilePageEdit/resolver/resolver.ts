@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { userSex } from '../../../../../../../libs/interfaces/src';
+import { userSex } from '@social-network/interfaces';
 
 const JoiString = Joi.string().min(3);
 
@@ -8,8 +8,10 @@ export const profileSchema = Joi.object({
   surname: JoiString.required(),
   sex: Joi.string().valid('Men', 'Women'),
   bdate: Joi.date(),
-  'location.city': Joi.string(),
-  'location.country': Joi.string(),
+  location: Joi.object({
+    city: Joi.string().optional(),
+    country: Joi.string().optional(),
+  }).optional(),
   status: Joi.string(),
   phone: Joi.string(),
 });

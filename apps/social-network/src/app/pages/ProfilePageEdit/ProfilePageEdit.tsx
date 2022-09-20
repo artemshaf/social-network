@@ -3,30 +3,62 @@ import { IProfilePageEditInterface } from './ProfilePageEdit.interface';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { profileSchema } from './resolver/resolver';
-import { useAppDispatch } from '@client/store';
-import { Button, Card, Input } from '@client/components';
-import { useUpdateProfileMutation } from '@client/services';
+import { selectUserId, useAppDispatch, useAppSelector } from '@client/store';
+import { Button, Card, Input, Loader } from '@client/components';
 import { IProfileUser } from '@social-network/interfaces';
+import { useNavigate } from 'react-router-dom';
+import { PROFILE_ROUTE } from '@client/utils/consts';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { ProfileService } from '@client/services';
+import { AccountUserProfile } from '@social-network/contracts';
+import { formatDateInput } from '@client/utils/hooks';
 
 export const ProfilePageEdit = ({
   className,
   ...props
 }: IProfilePageEditInterface) => {
+  const [profileData, setProfileData] = useState<AccountUserProfile.Response>(
+    {} as AccountUserProfile.Response
+  );
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IProfileUser>({ resolver: joiResolver(profileSchema) });
-  const user = '123';
-
-  const [updateProfile, result] = useUpdateProfileMutation();
+  } = useForm<IProfileUser>({
+    resolver: joiResolver(profileSchema),
+    defaultValues: {
+      name: profileData?.name,
+    },
+  });
+  const id = useAppSelector(selectUserId);
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IProfileUser> = async (data: IProfileUser) => {
-    await updateProfile({ id: user, dto: data });
+    const res = await ProfileService.update({ id, dto: data });
+    if (res.status === 200) {
+      navigate(PROFILE_ROUTE + id, { replace: true });
+    }
   };
+
+  useEffect(() => {
+    async function setProfile() {
+      return await ProfileService.get({ id });
+    }
+    setProfile().then((res) => {
+      console.log(res);
+      setProfileData(res.data);
+      reset({
+        ...res.data,
+        bdate: formatDateInput(res.data?.bdate as Date),
+      });
+    });
+  }, []);
 
   return (
     <Card
+      wrapper
       className={styles.profilePageEdit}
       tag="form"
       onSubmit={handleSubmit(onSubmit)}
@@ -44,28 +76,23 @@ export const ProfilePageEdit = ({
         error={errors.surname ? errors.surname.message : ''}
         {...register('surname')}
       />
-      <Input
-        titleText="Sex"
-        placeholder="Enter your sex"
-        error={errors.sex ? errors.sex.message : ''}
-        {...register('sex')}
-      />
-      <Input
-        titleText="Birth date"
-        placeholder="Enter your Birth date"
-        error={errors.bdate ? errors.bdate.message : ''}
-        {...register('bdate')}
-      />
+      <h1>Sex</h1>
+      <select {...register('sex')}>
+        <option>Men</option>
+        <option>Women</option>
+      </select>
+      <h1>Birth date</h1>
+      <input type={'date'} {...register('bdate')} />
       <Input
         titleText="Location City"
         placeholder="Enter your city"
-        error={errors.location ? errors.location.message : ''}
+        error={errors.location?.city ? errors.location.city?.message : ''}
         {...register('location.city')}
       />
       <Input
         titleText="Location Country"
         placeholder="Enter your country"
-        error={errors.location ? errors.location.message : ''}
+        error={errors.location?.country ? errors.location?.country.message : ''}
         {...register('location.country')}
       />
       <Input

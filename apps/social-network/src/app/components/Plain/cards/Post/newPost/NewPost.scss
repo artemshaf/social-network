@@ -1,17 +1,38 @@
 .new-post {
-  @apply flex flex-wrap;
-  & > input {
-    @apply w-full;
+  @apply flex flex-wrap flex-col gap-2;
+  &__textarea {
+    @apply border-grey-300 border rounded-sm p-2;
+    min-height: 50px;
+    max-height: 150px;
+  }
+
+  &__title {
+    @apply align-middle;
   }
   & > div {
-    @apply flex gap-x-2 ml-auto;
+    @apply flex gap-x-2;
     & svg {
       @apply cursor-pointer;
     }
   }
-  & * {
+  & input {
     @apply bg-white;
   }
+  &__icons {
+    @apply flex ml-auto items-center;
+  }
+
+  &__files {
+    @apply flex items-center;
+    & > div {
+      width: 200px;
+
+      @screen md {
+        width: 100%;
+      }
+    }
+  }
+
   @screen sm {
     @apply flex-nowrap;
   }

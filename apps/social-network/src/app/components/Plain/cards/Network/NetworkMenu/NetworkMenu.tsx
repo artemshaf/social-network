@@ -7,7 +7,12 @@ import './NetworkMenu.scss';
 
 export const NetworkMenu = ({ className, ...props }: INetworkMenuInterface) => {
   return (
-    <Card tag="ul" className={cn(className, 'network-menu__list')} {...props}>
+    <Card
+      tag="ul"
+      wrapper
+      className={cn(className, 'network-menu__list')}
+      {...props}
+    >
       {NetworkMenuData.map((item) => (
         <li className={'network-menu__list-item'}>
           <Link to={item.link}>

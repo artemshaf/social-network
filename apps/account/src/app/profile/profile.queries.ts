@@ -1,13 +1,13 @@
 import { BadRequestException, Body, Controller } from '@nestjs/common';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import {
-  AccountUserDeleteProfile,
   AccountUserFindProfile,
   AccountUserProfile,
+  AccountUserProfileFindSample,
 } from '@social-network/contracts';
 import { ProfileRepository } from './repository/profile.repository';
 
-@Controller()
+@Controller('profile')
 export class ProfileQueries {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
@@ -15,7 +15,7 @@ export class ProfileQueries {
   async get(
     @Body() { id }: AccountUserProfile.Request
   ): Promise<AccountUserProfile.Response> {
-    const profile = await this.profileRepository.findById(id);
+    const profile = await this.profileRepository.findByUser(id);
     if (!profile) {
       throw new BadRequestException('Такого профиля не существует');
     }
@@ -31,5 +31,15 @@ export class ProfileQueries {
       throw new BadRequestException('Такого профиля не существует');
     }
     return { users: usersProfile };
+  }
+
+  @RMQValidate()
+  @RMQRoute(AccountUserProfileFindSample.topic)
+  async findSample(
+    @Body() { size }: AccountUserProfileFindSample.Request
+  ): Promise<AccountUserProfileFindSample.Response> {
+    return {
+      profiles: await this.profileRepository.findSample(size),
+    };
   }
 }

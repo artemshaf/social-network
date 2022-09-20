@@ -4,7 +4,10 @@ import { Document } from 'mongoose';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import {
+  FileCreateUserFile,
+  FileDownloadFile,
   FileFindInfo,
+  FileFindMusic,
   FileReadStream,
   FileWriteFile,
   FileWriteStream,
@@ -23,6 +26,14 @@ export class AppController {
   }
 
   @RMQValidate()
+  @RMQRoute(FileCreateUserFile.topic)
+  async createUserFiles({
+    id,
+  }: FileCreateUserFile.Request): Promise<FileCreateUserFile.Response> {
+    return this.fileRepository.createUserFiles(id);
+  }
+
+  @RMQValidate()
   @RMQRoute(FileWriteStream.topic)
   async writeStream({
     stream,
@@ -38,12 +49,27 @@ export class AppController {
   }
 
   @RMQValidate()
+  @RMQRoute(FileFindMusic.topic)
+  async findMusic({}: FileFindMusic.Response): Promise<FileFindMusic.Request> {
+    return await this.fileRepository.findMusic();
+  }
+
+  @RMQValidate()
   @RMQRoute(FileWriteFile.topic)
   @UseInterceptors(AnyFilesInterceptor())
   async writeFile({
     files,
     metadata,
   }: FileWriteFile.Request): Promise<FileWriteFile.Response> {
-    return await this.fileRepository.writeFile(files, metadata);
+    return await this.fileRepository.writeFiles(files, metadata);
+  }
+
+  @RMQValidate()
+  @RMQRoute(FileDownloadFile.topic)
+  @UseInterceptors(AnyFilesInterceptor())
+  async readFiles({
+    ids,
+  }: FileDownloadFile.Request): Promise<FileDownloadFile.Response> {
+    return await this.fileRepository.readFiles(ids);
   }
 }

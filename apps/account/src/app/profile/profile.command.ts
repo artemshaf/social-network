@@ -2,7 +2,6 @@ import { BadRequestException, Body, Controller } from '@nestjs/common';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import {
   AccountUserDeleteProfile,
-  AccountUserProfile,
   AccountUserUpdateProfile,
 } from '@social-network/contracts';
 import { ProfileRepository } from './repository/profile.repository';
@@ -11,7 +10,7 @@ import { ProfileRepository } from './repository/profile.repository';
 export class ProfileCommand {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
-  // @RMQValidate()
+  @RMQValidate()
   @RMQRoute(AccountUserUpdateProfile.topic)
   async update(
     @Body() { id, dto }: AccountUserUpdateProfile.Request
@@ -30,7 +29,7 @@ export class ProfileCommand {
   @RMQRoute(AccountUserDeleteProfile.topic)
   async delete(
     @Body() { id }: AccountUserDeleteProfile.Request
-  ): Promise<AccountUserProfile.Response> {
+  ): Promise<AccountUserDeleteProfile.Response> {
     const profile = await this.profileRepository.delete(id);
     if (!profile) {
       throw new BadRequestException('Такого профиля не существует');

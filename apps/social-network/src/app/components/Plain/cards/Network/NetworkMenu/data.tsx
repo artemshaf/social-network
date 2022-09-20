@@ -2,18 +2,8 @@ import { Icon } from '@client/components/UI';
 
 export const NetworkMenuData = [
   {
-    icon: <Icon icon="peoples" />,
-    text: 'Connections',
-    link: '',
-  },
-  {
     icon: <Icon icon="cardPeople" />,
-    text: 'Teammates',
-    link: '',
-  },
-  {
-    icon: <Icon icon="book" />,
-    text: 'Contacts',
+    text: 'Followers',
     link: '',
   },
   {
@@ -24,11 +14,6 @@ export const NetworkMenuData = [
   {
     icon: <Icon icon="peopleMore" />,
     text: 'Group',
-    link: '',
-  },
-  {
-    icon: <Icon icon="phone" />,
-    text: 'Pages',
     link: '',
   },
   {

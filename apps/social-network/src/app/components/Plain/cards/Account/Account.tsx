@@ -6,7 +6,12 @@ import './Account.scss';
 
 export const Account = ({ className, ...props }: IAccountInterface) => {
   return (
-    <Card tag="section" className={cn(className, 'account-card')} {...props}>
+    <Card
+      wrapper
+      tag="section"
+      className={cn(className, 'account-card')}
+      {...props}
+    >
       <SuggestionItem buttonVisible={false} style={{ padding: '0' }} />
       <ul className="account-card__list">
         <li className="account-card__list-item">

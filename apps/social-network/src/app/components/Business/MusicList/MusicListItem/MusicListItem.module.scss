@@ -1,0 +1,14 @@
+.musicListItem {
+  @apply flex gap-4 w-full;
+  @screen md {
+    width: calc(50% - 12px);
+  }
+  & > img {
+    width: 40px;
+    height: 40px;
+  }
+
+  &Time {
+    @apply ml-auto;
+  }
+}

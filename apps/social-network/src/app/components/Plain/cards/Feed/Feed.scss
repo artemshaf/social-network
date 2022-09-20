@@ -1,5 +1,23 @@
 .feed {
   &__info {
-    @apply flex justify-between items-center;
+    @apply flex items-center;
+  }
+
+  &__list {
+    @apply flex flex-col gap-y-3;
+  }
+
+  &__item {
+    @apply flex items-center gap-x-2 justify-between;
+    &__img {
+      width: 35px;
+      height: 35px;
+    }
+    &__info {
+      width: 100px;
+    }
+    &__btn {
+      font-size: 24px;
+    }
   }
 }

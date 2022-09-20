@@ -4,6 +4,7 @@ import {
   MESSAGING_ROUTE,
   NETWORK_ROUTE,
   NOTIFICATION_ROUTE,
+  WORK_ROUTE,
 } from '@client/utils/consts';
 
 export const MenuData = [
@@ -35,6 +36,6 @@ export const MenuData = [
   {
     icon: <Icon icon="dots" />,
     text: 'Work',
-    link: '',
+    link: WORK_ROUTE,
   },
 ];

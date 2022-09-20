@@ -9,6 +9,7 @@ import {
   NetworkMenu,
   SuggestionList,
 } from '@client/components/index';
+import './NetworkPage.scss';
 
 export const NetworkPage = ({ className, ...props }: INetworkPageInterface) => {
   return (

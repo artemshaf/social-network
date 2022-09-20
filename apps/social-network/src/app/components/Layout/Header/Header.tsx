@@ -12,13 +12,12 @@ import {
   Box,
 } from '@mui/material';
 import {
-  selectUserName,
+  selectUserId,
   setAuth,
   setUser,
   useAppDispatch,
   useAppSelector,
 } from '@client/store';
-import { authStorage } from '@client/store';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_ROUTE, PROFILE_ROUTE } from '@client/utils/consts';
 import { IUser } from '@social-network/interfaces';
@@ -36,9 +35,9 @@ const selectItems = [
 ];
 
 export const Header = ({ className, children, ...props }: IHeaderInterface) => {
-  const { _id } = useAppSelector(selectUserName);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const id = useAppSelector(selectUserId);
 
   const [selectValue, setSelectValue] = useState('');
 
@@ -49,19 +48,20 @@ export const Header = ({ className, children, ...props }: IHeaderInterface) => {
       handleExit();
     }
     if (value === 'Profile') {
-      navigate(PROFILE_ROUTE + _id);
+      navigate(PROFILE_ROUTE + id, { replace: true });
     }
   };
 
   const handleExit = () => {
-    authStorage('', '');
     dispatch(setUser({} as IUser));
     dispatch(setAuth(false));
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     navigate(AUTH_ROUTE);
   };
 
   return (
-    <Card tag="section" className={cn(className, 'header')} {...props}>
+    <Card wrapper tag="section" className={cn(className, 'header')} {...props}>
       <FormControl fullWidth sx={{ maxWidth: 200 }} variant="standard">
         <Select
           value={selectValue}
@@ -70,7 +70,9 @@ export const Header = ({ className, children, ...props }: IHeaderInterface) => {
           id="header-select"
         >
           {selectItems.map((item) => (
-            <MenuItem value={item.value}>{item.label}</MenuItem>
+            <MenuItem value={item.value} key={item.value}>
+              {item.label}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

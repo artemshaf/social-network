@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { IPostInterface } from './Post.interface';
 import './Post.scss';
 
-export const Post = ({ className, ...props }: IPostInterface) => {
+export const Post = ({ post, className, ...props }: IPostInterface) => {
   return (
     <Card tag="li" className={cn(className, 'post-item')} {...props}>
       <div className={'post-item__info'}>

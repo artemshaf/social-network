@@ -18,10 +18,12 @@ export class AuthService {
     const user = await (
       await this.userRepository.findById(id)
     ).$set({ online: true });
+
     const userOnline = await this.userRepository.update({ _id: id, user });
     const userEntity = new UserEntity(userOnline);
-    const tokens = await this.tokenService.generateTokens(userEntity);
-    await this.tokenService.saveToken(id, tokens.refreshToken);
+    const tokens = await this.tokenService.generateTokens({ ...userEntity });
+    await this.tokenService.saveToken(userEntity._id, tokens.refreshToken);
+
     return {
       ...tokens,
       user,
@@ -53,7 +55,8 @@ export class AuthService {
     }).setPassword(dto.password);
     const newUser = await this.userRepository.create(newUserEntity);
     await this.profileRepository.create(newUser._id);
-    return { user: newUser };
+    const tokens = await this.tokenService.generateTokens({ ...newUser });
+    return { ...tokens, user: newUser };
   }
 
   async validateUser(email: string, password: string) {
@@ -66,8 +69,6 @@ export class AuthService {
     if (!isCorrectPassword) {
       throw new BadRequestException('Неверный логин или пароль!');
     }
-    return {
-      id: user._id,
-    };
+    return user;
   }
 }

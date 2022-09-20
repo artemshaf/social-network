@@ -24,8 +24,8 @@ export const WriteMessaging = ({
           <Icon icon="more" />
           <Icon icon="ArrowTop" />
         </div>
+        <Button>Send</Button>
       </Card>
-      <Button>Send</Button>
     </>
   );
 };

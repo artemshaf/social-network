@@ -14,5 +14,7 @@ export namespace AccountAuthRegister {
 
   export class Response {
     user: IUser;
+    accessToken: string;
+    refreshToken: string;
   }
 }

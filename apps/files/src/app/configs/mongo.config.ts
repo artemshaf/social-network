@@ -8,7 +8,6 @@ import { MongoClient } from 'mongodb';
 export const getMongoConfig = (): MongooseModuleAsyncOptions => {
   return {
     useFactory: async (configService: ConfigService) => {
-      await MongoClient.connect(getMongoString(configService));
       return {
         uri: getMongoString(configService),
       };

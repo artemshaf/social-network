@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { AccountUserGet } from '../../../../../../libs/contracts/src';
 import { UserEntity } from '../entity/user.entity';
 import { User } from '../model/user.model';
 
@@ -35,5 +36,17 @@ export class UserRepository {
 
   async deleteByEmail(email: string) {
     return this.userModel.findOneAndDelete({ email }).exec();
+  }
+
+  async findSample(size = 4) {
+    return this.userModel
+      .aggregate([
+        {
+          $sample: {
+            size,
+          },
+        },
+      ])
+      .exec();
   }
 }

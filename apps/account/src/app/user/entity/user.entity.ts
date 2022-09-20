@@ -32,49 +32,4 @@ export class UserEntity implements IUser {
     this.online = online;
     return this;
   }
-
-  // public async addFriendRequest(dto: IFriend) {
-  //   this.friends.push({
-  //     ...dto,
-  //   });
-  //   return this;
-  // }
-
-  // public async deleteFriendRequest(id: string) {
-  //   this.friends = this.friends.filter((item) => item.id !== id);
-  //   return this;
-  // }
-
-  // public async addFriend(id: string) {
-  //   const friend = await this.friends.find((item) => item.id === id);
-  //   friend.request_type = InviteStatus.Accepted;
-  //   return this;
-  // }
-
-  // public async deleteFriend(id: string, request_type: InviteStatus) {
-  //   const friend = await this.friends.find((item) => item.id === id);
-  //   friend.request_type = request_type;
-  //   return this;
-  // }
-
-  // public async friendship(id: string) {
-  //   const friendReqType = await this.friends.find((item) => item.id === id)
-  //     .request_type;
-  //   if (friendReqType === 'Rejected') {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
-  // public getProfile(): IProfileUser {
-  //   return this.profileUser;
-  // }
-
-  // public getTweets(): ITweet[] {
-  //   return this.tweets;
-  // }
-
-  // public getFriends(): IFriend[] {
-  //   return this.friends;
-  // }
 }

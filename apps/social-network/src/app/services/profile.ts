@@ -1,37 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseProfile } from '@client/utils/consts';
 import {
   AccountUserProfile,
+  AccountUserProfileFindSample,
   AccountUserUpdateProfile,
 } from '@social-network/contracts';
+import $api from './http';
 
-export const profileApi = createApi({
-  reducerPath: 'profileApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseProfile }),
-  tagTypes: ['profile'],
-  endpoints: (build) => ({
-    getProfile: build.query<
-      AccountUserProfile.Response,
-      AccountUserProfile.Request
-    >({
-      query: ({ id }) => ({
-        method: 'GET',
-        url: '/' + id,
-      }),
-      providesTags: ['profile'],
-    }),
-    updateProfile: build.mutation<
-      AccountUserUpdateProfile.Response,
-      AccountUserUpdateProfile.Request
-    >({
-      query: (body) => ({
-        method: 'POST',
-        url: '/profile',
-        body,
-      }),
-      invalidatesTags: ['profile'],
-    }),
-  }),
-});
+export class ProfileService {
+  public static prefixString = 'profile/';
+  static async get({ id }: AccountUserProfile.Request) {
+    return $api.get(this.prefixString + id);
+  }
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = profileApi;
+  static async update(data: AccountUserUpdateProfile.Request) {
+    return $api.put(this.prefixString, data);
+  }
+
+  static async findSample(data: AccountUserProfileFindSample.Request) {
+    return $api.post(this.prefixString + 'find-sample', data);
+  }
+}

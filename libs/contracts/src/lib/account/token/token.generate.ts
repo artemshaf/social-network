@@ -1,12 +1,11 @@
-import { IsObject, IsString } from 'class-validator';
-import { IToken, IUser } from '@social-network/interfaces';
+import { IsString } from 'class-validator';
 
 export namespace AccountUserTokenGenerate {
   export const topic = 'account/token.generate.query';
 
   export class Request {
-    @IsObject()
-    user: IUser;
+    @IsString()
+    user: string;
   }
 
   export class Response {

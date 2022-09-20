@@ -4,5 +4,7 @@ import { JwtModuleAsyncOptions } from '@nestjs/jwt';
 export const getJWTConfig = (): JwtModuleAsyncOptions => ({
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: (configService: ConfigService) => ({}),
+  useFactory: (configService: ConfigService) => ({
+    secret: configService.get('JWT_SECRET_ACCESS'),
+  }),
 });

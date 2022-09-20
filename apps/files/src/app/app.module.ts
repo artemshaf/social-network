@@ -5,16 +5,21 @@ import { MulterModule } from '@nestjs/platform-express';
 import { RMQModule } from 'nestjs-rmq';
 import { AppController } from './app.controller';
 import { getMongoConfig } from './configs/mongo.config';
-import { getMulterConfig } from './configs/multer.config';
 import { getRMQConfig } from './configs/rmq.config';
+import { UserFile, UserFileSchema } from './model/userFile.model';
 import { FileRepository } from './repository/file.repository';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.envs/.files.env', isGlobal: true }),
     MongooseModule.forRootAsync(getMongoConfig()),
+    MongooseModule.forFeature([
+      {
+        schema: UserFileSchema,
+        name: UserFile.name,
+      },
+    ]),
     RMQModule.forRootAsync(getRMQConfig()),
-    MulterModule.registerAsync(getMulterConfig()),
   ],
   controllers: [AppController],
   providers: [FileRepository],

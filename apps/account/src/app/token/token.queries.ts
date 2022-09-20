@@ -10,11 +10,13 @@ import { TokenService } from './token.service';
 export class TokenQueries {
   constructor(private readonly tokenService: TokenService) {}
 
-  @RMQValidate()
+  // @RMQValidate()
   @RMQRoute(AccountUserTokenValidateAccess.topic)
   validateAccessToken(
     @Body() accessToken: AccountUserTokenValidateAccess.Request
   ): Promise<AccountUserTokenValidateAccess.Response> {
+    console.log('validateAccessToken');
+    console.log(accessToken);
     return this.tokenService.validateAccessToken(accessToken);
   }
 

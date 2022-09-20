@@ -23,7 +23,7 @@ export class Profile extends Document implements IProfileUser {
   @Prop({ type: Date })
   bdate?: Date;
 
-  @Prop({ type: String })
+  @Prop({ type: Object })
   location?: IUserLocation;
 
   @Prop({ type: String })
@@ -31,6 +31,9 @@ export class Profile extends Document implements IProfileUser {
 
   @Prop({ type: String })
   phone?: string;
+
+  @Prop({ type: Types.ObjectId })
+  photo?: string;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);
